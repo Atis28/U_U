@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment{
     ImageView woodenImage ;
     TextView animationText ;
     private static final int REQUEST_CODE_SELECT_IMAGE = 1;
+    private static final int REQUEST_CODE_SETTING = 1;
 
     @Nullable
     @Override
@@ -88,9 +89,16 @@ public class HomeFragment extends Fragment{
                 animationText.startAnimation(animation);
             }
         });
-
     }
 
+    // update edAnimation text cho textview
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String text = sharedPreferences.getString("text_key", "");
+        animationText.setText(text);
+    }
 
     // image wooden
     @Override

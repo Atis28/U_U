@@ -90,6 +90,7 @@ public class SettingActivity extends AppCompatActivity {
                 editor.apply();
                 savedText[0] = text; // update savedText with the new value of text
                 Toast.makeText(SettingActivity.this, "oke", Toast.LENGTH_LONG).show();
+                finish();
             }
         });
 
