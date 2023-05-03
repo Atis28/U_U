@@ -2,6 +2,8 @@ package com.example.muyu_u_;
 
 import static com.google.android.material.internal.ContextUtils.getActivity;
 
+import static java.security.AccessController.getContext;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.FragmentManager;
@@ -10,12 +12,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -24,7 +30,7 @@ public class SettingActivity extends AppCompatActivity {
     int selectedImageResourceId;
     EditText edAnimation;
     AppCompatButton btnAnimation;
-    FragmentManager fragmentManager;
+    TextView btnSound1, btnSound2, btnSound3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +100,41 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        //sound wooden
+        SharedPreferences pref = getSharedPreferences("sound", Context.MODE_PRIVATE);
+        btnSound1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Save the selected sound to SharedPreferences
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("selected_sound", 0);
+                editor.apply();
+                Toast.makeText(SettingActivity.this, "oke", Toast.LENGTH_LONG).show();
+            }
+        });
+        btnSound2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Save the selected sound to SharedPreferences
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("selected_sound", 1);
+                editor.apply();
+                Toast.makeText(SettingActivity.this, "oke", Toast.LENGTH_LONG).show();
+            }
+        });
+        btnSound3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Save the selected sound to SharedPreferences
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("selected_sound", 2);
+                editor.apply();
+                Toast.makeText(SettingActivity.this, "oke", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
+
 
     public void setProfilePicture(View view) {
         // Creating a Return intent to pass to the Main Activity
@@ -118,5 +158,9 @@ public class SettingActivity extends AppCompatActivity {
 
         edAnimation = findViewById(R.id.edit_txt_sub);
         btnAnimation = findViewById(R.id.btn_animation);
+
+        btnSound1 = findViewById(R.id.sound1);
+        btnSound2 = findViewById(R.id.sound2);
+        btnSound3 = findViewById(R.id.sound3);
     }
 }

@@ -35,8 +35,8 @@
         <ImageView
             android:id="@+id/pic_wooden"
             android:layout_width="310dp"
-            android:layout_height="285dp"
-            android:layout_marginBottom="122dp"
+            android:layout_height="290dp"
+            android:layout_marginBottom="112dp"
             android:src="@drawable/wooden"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

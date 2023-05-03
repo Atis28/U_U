@@ -23,9 +23,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -33,10 +37,12 @@ import java.util.List;
 public class HomeFragment extends Fragment{
 
     private ImageView settingImg;
-    ImageView woodenImage ;
-    TextView animationText ;
+    ImageView woodenImage, resetMerit ;
+    TextView animationText, txtMerit ;
     private static final int REQUEST_CODE_SELECT_IMAGE = 1;
-    private static final int REQUEST_CODE_SETTING = 1;
+    private MediaPlayer mediaPlayer;
+    private int selectedSound;
+
 
     @Nullable
     @Override
@@ -58,19 +64,25 @@ public class HomeFragment extends Fragment{
 
         woodenImage  = view.findViewById(R.id.pic_wooden);
         animationText  = view.findViewById(R.id.txtAnimation);
+        txtMerit = view.findViewById(R.id.txt_merit_num);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String text = sharedPreferences.getString("text_key", "");
         animationText.setText(text);
-//        updateAnimationText("hhh");
         animationText.setVisibility(View.GONE);
-        final MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.sound1);
+
+        //shrink wooden
+        ScaleAnimation shrinkAnim = new ScaleAnimation(1f, 0.97f, 1f, 0.97f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        shrinkAnim.setDuration(60);
+        ScaleAnimation restoreAnim = new ScaleAnimation(0.97f, 1f, 0.97f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        restoreAnim.setDuration(60);
 
         woodenImage .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animationText.setVisibility(View.VISIBLE);
                 mediaPlayer.start();
+
+                animationText.setVisibility(View.VISIBLE);
                 Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.bounce_in_up);
                 animation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
@@ -87,17 +99,64 @@ public class HomeFragment extends Fragment{
                     }
                 });
                 animationText.startAnimation(animation);
+                // Update the count and set it on the text view
+                int meritCount = Integer.parseInt(txtMerit.getText().toString()) + 1;
+                txtMerit.setText(String.valueOf(meritCount));
+                //shrink wooden
+                AnimationSet animSet = new AnimationSet(true);
+                animSet.addAnimation(shrinkAnim);
+                animSet.addAnimation(restoreAnim);
+                woodenImage.startAnimation(animSet);
             }
         });
+
+        //reset merit
+        resetMerit = view.findViewById(R.id.reset_merit);
+        resetMerit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtMerit.setText(String.valueOf(0));
+            }
+        });
+
     }
 
-    // update edAnimation text cho textview
+    // update
     @Override
     public void onResume() {
         super.onResume();
+        // update edAnimation text cho textview
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String text = sharedPreferences.getString("text_key", "");
         animationText.setText(text);
+
+        // update sound
+        SharedPreferences pref = getActivity().getSharedPreferences("sound", Context.MODE_PRIVATE);
+        selectedSound = pref.getInt("selected_sound", 0);
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+        }
+        // Create a new media player with the selected sound
+        if (selectedSound == 0) {
+            mediaPlayer = MediaPlayer.create(getContext(), R.raw.sound1);
+        } else if (selectedSound == 1) {
+            mediaPlayer = MediaPlayer.create(getContext(), R.raw.sound2);
+        } else if (selectedSound == 2) {
+            mediaPlayer = MediaPlayer.create(getContext(), R.raw.sound3);
+        } else {
+            // Use a default sound or handle the situation in some other way
+            mediaPlayer = MediaPlayer.create(getContext(), R.raw.sound1);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Release the media player when the fragment is paused
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     // image wooden
@@ -111,9 +170,4 @@ public class HomeFragment extends Fragment{
         }
     }
 
-    private void updateAnimationText(String value) {
-        if (animationText != null) {
-            animationText.setText(value);
-        }
-    }
 }
