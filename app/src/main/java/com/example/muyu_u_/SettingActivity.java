@@ -29,7 +29,7 @@ public class SettingActivity extends AppCompatActivity {
     ImageView w1, w2, w3, w4, w5, w6;
     int selectedImageResourceId;
     EditText edAnimation;
-    AppCompatButton btnAnimation;
+    AppCompatButton btnAnimation, btnChooseMusic;
     TextView btnSound1, btnSound2, btnSound3;
 
     @Override
@@ -133,6 +133,13 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        btnChooseMusic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingActivity.this, MusicActivity.class));
+            }
+        });
+
     }
 
 
@@ -162,5 +169,7 @@ public class SettingActivity extends AppCompatActivity {
         btnSound1 = findViewById(R.id.sound1);
         btnSound2 = findViewById(R.id.sound2);
         btnSound3 = findViewById(R.id.sound3);
+
+        btnChooseMusic = findViewById(R.id.choose_music);
     }
 }

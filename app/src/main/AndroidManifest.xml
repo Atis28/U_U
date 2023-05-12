@@ -2,16 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/wooden"
-        android:label="@string/app_name"
-        android:roundIcon="@drawable/wooden"
+        android:icon="@drawable/icon_stones"
+        android:label="Healing"
+        android:roundIcon="@drawable/icon_stones"
         android:supportsRtl="true"
         android:theme="@style/Theme.MUYU_U_"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        tools:replace="android:appComponentFactory">
         <activity
             android:name=".MusicActivity"
             android:exported="false">

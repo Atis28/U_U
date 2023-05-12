@@ -57,24 +57,14 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/add_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:text="add image"
-                android:textColor="@color/light_gray"
-                android:textSize="15dp"
-                android:gravity="center"
-                android:layout_margin="10dp"
-                android:background="@drawable/cover_navi"/>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+            android:text="add image"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:layout_margin="10dp"/>
 
 
     </LinearLayout>
