@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MUYU_U_"
         tools:targetApi="31"
-        tools:replace="android:appComponentFactory">
+        >
         <activity
             android:name=".MusicActivity"
             android:exported="false">
