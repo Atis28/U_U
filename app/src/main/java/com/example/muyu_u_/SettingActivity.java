@@ -31,6 +31,7 @@ public class SettingActivity extends AppCompatActivity {
     EditText edAnimation;
     AppCompatButton btnAnimation, btnChooseMusic;
     TextView btnSound1, btnSound2, btnSound3;
+    Switch swVibration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +141,23 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        //switch vibration
+        // Retrieve the last saved switch state from SharedPreferences
+        SharedPreferences prefsVib = getSharedPreferences("vibration", MODE_PRIVATE);
+        boolean vibrationEnabled = prefsVib.getBoolean("vibrationEnabled", false);
+        // Set the switch state
+        swVibration.setChecked(vibrationEnabled);
+        swVibration.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // Save the vibration setting to SharedPreferences
+                // Save the switch state to SharedPreferences
+                SharedPreferences.Editor editor = prefsVib.edit();
+                editor.putBoolean("vibrationEnabled", isChecked);
+                editor.apply();
+                Toast.makeText(SettingActivity.this, "oke", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
@@ -171,5 +189,7 @@ public class SettingActivity extends AppCompatActivity {
         btnSound3 = findViewById(R.id.sound3);
 
         btnChooseMusic = findViewById(R.id.choose_music);
+
+        swVibration = findViewById(R.id.Vibration);
     }
 }

@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -107,6 +108,20 @@ public class HomeFragment extends Fragment{
                 animSet.addAnimation(shrinkAnim);
                 animSet.addAnimation(restoreAnim);
                 woodenImage.startAnimation(animSet);
+
+
+                //vibration
+                // Check if vibration is enabled in SharedPreferences
+                SharedPreferences prefsVib = requireActivity().getSharedPreferences("vibration", Context.MODE_PRIVATE);
+                boolean vibrationEnabled = prefsVib.getBoolean("vibrationEnabled", false);
+                if (vibrationEnabled) {
+                    // Vibration is enabled, initiate the vibration
+                    Vibrator vibrator = (Vibrator) requireActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                    if (vibrator != null && vibrator.hasVibrator()) {
+                        // Vibrate for 500 milliseconds
+                        vibrator.vibrate(50);
+                    }
+                }
             }
         });
 

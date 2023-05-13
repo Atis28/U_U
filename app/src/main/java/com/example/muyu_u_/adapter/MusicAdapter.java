@@ -54,13 +54,11 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             songName = itemView.findViewById(R.id.song_name);
-            songBio = itemView.findViewById(R.id.song_bio);
             songTime = itemView.findViewById(R.id.song_time);
         }
 
         public void bind(final Music music, final OnItemClickListener listener) {
             songName.setText(music.getTitle());
-            songBio.setText(music.getBio());
             songTime.setText(music.getTime());
 
             itemView.setOnClickListener(new View.OnClickListener() {

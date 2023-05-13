@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MeFragment"
     android:background="@color/black">
     <LinearLayout android:layout_width="match_parent"
@@ -57,15 +58,36 @@
             </LinearLayout>
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/add_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="add image"
-            android:textColor="@color/black"
+            android:text="Change Avatar"
+            android:textColor="@color/white"
             android:textSize="15dp"
-            android:layout_margin="10dp"/>
+            android:layout_marginHorizontal="10dp"
+            android:textAllCaps="false"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/cover_grid"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_quotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Quotes Motivational"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:textAllCaps="false"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/cover_grid"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>
