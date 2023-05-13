@@ -4,8 +4,10 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,7 +53,8 @@ public class MeFragment extends Fragment {
 //    private DatabaseHelper db;
 
     CircleImageView circleImageView;
-    Button btnAddImg;
+    Button btnAddImg, btnQuotes;
+    EditText edQuotes;
 
     public static final int IMAGE_CODE = 1;
 
@@ -97,15 +100,32 @@ public class MeFragment extends Fragment {
 //        }));
 
 
+        //avatar
         circleImageView = view.findViewById(R.id.profile_image);
         btnAddImg = view.findViewById(R.id.add_img);
-
         btnAddImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openImgForm();
             }
         });
+
+        //quotes
+        btnQuotes = view.findViewById(R.id.add_quotes);
+        edQuotes = view.findViewById(R.id.ed_quotes);
+        SharedPreferences pref_quotes = getActivity().getSharedPreferences("quotes", Context.MODE_PRIVATE);
+        final String[] savedText = {pref_quotes.getString("text_key", "")};
+        edQuotes.setText(savedText[0]); // set saved text to EditText
+
+        btnQuotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = edQuotes.getText().toString();
+                savedText[0] = text; // update savedText with the new value of text
+                Toast.makeText(getActivity(), "oke", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 //
 //    //Inserting new note in db
